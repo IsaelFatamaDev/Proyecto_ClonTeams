@@ -51,11 +51,13 @@ router.get('/estadisticas', async (req, res) => {
      try {
           const cantidadUsuarios = await controllersJs.obtenerCantidadUsuarios();
           const cantidadProyectos = await controllersJs.obtenerCantidadProyectos();
+          const categoriasConCantidadProyectos = await controllersJs.obtenerCategoriasConCantidadProyectos();
 
           res.render("dashboard/estadisticas", {
                title: "Estadísticas",
                cantidadUsuarios,
                cantidadProyectos,
+               categoriasConCantidadProyectos: JSON.stringify(categoriasConCantidadProyectos), // Asegúrate de convertirlo a JSON
           });
      } catch (error) {
           console.error("Error al obtener estadísticas:", error);

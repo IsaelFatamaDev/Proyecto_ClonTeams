@@ -106,3 +106,29 @@ export function obtenerCantidadProyectos() {
           });
      });
 }
+export function obtenerCategoriasConCantidadProyectos() {
+     return new Promise((resolve, reject) => {
+          const query = `
+            SELECT
+                categorias.nombre_categoria AS nombre_categoria,
+                COUNT(proyectos.id_proyecto) AS cantidad_proyectos
+            FROM
+                categorias
+                LEFT JOIN proyectos ON categorias.id_categoria = proyectos.id_categoria
+            GROUP BY
+                categorias.id_categoria
+               
+        `;
+
+          conexion.query(query, (error, resultados) => {
+               if (error) {
+                    reject(error);
+               } else {
+                    resolve(resultados);
+                    console.log("Consulta ejecutada:", resultados);
+               }
+          });
+
+     });
+}
+

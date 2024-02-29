@@ -66,20 +66,32 @@
                <div class="grafico-container">
                     <h3 class="grafico-titulo">Cantidad de Usuarios Registrados</h3>
                     <p class="grafico-descripcion">Descripción del gráfico de usuarios.</p>
+                    <p>Total: <%= cantidadUsuarios %>
+                    </p>
                     <canvas id="usuarios-chart"></canvas>
                </div>
                <div class="grafico-container">
                     <h3 class="grafico-titulo">Cantidad de Proyectos Subidos</h3>
                     <p class="grafico-descripcion">Descripción del gráfico de proyectos.</p>
+                    <p>Total: <%= cantidadProyectos %>
+                    </p>
                     <canvas id="proyectos-chart"></canvas>
                </div>
+               <div class="grafico-container">
+                    <h3 class="grafico-titulo">Categoría con Más Proyectos</h3>
+                    <p class="grafico-descripcion">Categoría que tiene más proyectos registrados.</p>
+
+                    <canvas id="categoria-proyectos-chart"></canvas>
+               </div>
+
+
           </div>
 
      </main>
-
      <script>
           const cantidadUsuarios = <%= cantidadUsuarios %>;
           const cantidadProyectos = <%= cantidadProyectos %>;
+          const categoriasConCantidadProyectos = JSON.parse('<%- categoriasConCantidadProyectos %>');
 
           const usuariosChart = new Chart(document.getElementById('usuarios-chart'), {
                type: 'bar',
@@ -88,6 +100,7 @@
                     datasets: [{
                          label: 'Cantidad de Usuarios',
                          data: [cantidadUsuarios],
+                         backgroundColor: 'rgba(54, 162, 235, 0.6)'
                     }]
                },
                options: {
@@ -107,6 +120,7 @@
                     datasets: [{
                          label: 'Cantidad de Proyectos',
                          data: [cantidadProyectos],
+                         backgroundColor: 'rgba(255, 99, 132, 0.6)'
                     }]
                },
                options: {
@@ -114,6 +128,62 @@
                          y: {
                               beginAtZero: true,
                               precision: 0
+                         }
+                    }
+               }
+          });
+
+          const categoriaProyectosChart = new Chart(document.getElementById('categoria-proyectos-chart'), {
+               type: 'bar',
+               data: {
+                    labels: categoriasConCantidadProyectos.map(categoria => categoria.nombre_categoria),
+                    datasets: [{
+                         label: 'Cantidad de Proyectos por Categoría',
+                         data: categoriasConCantidadProyectos.map(categoria => categoria.cantidad_proyectos),
+                         backgroundColor: [
+                              'rgba(255, 159, 64, 0.6)',
+                              'rgba(75, 192, 192, 0.6)',
+                              'rgba(255, 205, 86, 0.6)',
+                              'rgba(153, 102, 255, 0.6)',
+                              'rgba(64, 255, 159, 0.6)',
+                              'rgba(201, 203, 207, 0.6)',
+                              'rgba(54, 162, 235, 0.6)',
+                              'rgba(255, 99, 132, 0.6)',
+                              'rgba(255, 64, 159, 0.6)',
+                              'rgba(159, 64, 255, 0.6)',
+                              'rgba(64, 159, 255, 0.6)'
+                         ]
+
+                    }]
+               },
+               options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                         legend: {
+                              display: false
+                         }
+                    },
+                    scales: {
+                         y: {
+                              beginAtZero: true,
+                              precision: 0
+                         }
+                    },
+                    plugins: {
+                         tooltip: {
+                              callbacks: {
+                                   label: function (context) {
+                                        var label = context.dataset.label || '';
+
+                                        if (label) {
+                                             label += ': ';
+                                        }
+                                        label += context.parsed.y;
+
+                                        return label;
+                                   }
+                              }
                          }
                     }
                }
