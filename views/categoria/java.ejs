@@ -42,6 +42,7 @@
           color: #fff;
           border: none;
           cursor: pointer;
+          border-radius: 15px;
         }
     
         button:hover {
@@ -74,7 +75,7 @@
             
         <div class="chatbot">
           <header>
-            <h2>Chatbot</h2>
+            <h2>Chatbot Valle Grande</h2>
             <span class="close-btn material-symbols-outlined">close</span>
           </header>
           <ul class="chatbox">
@@ -89,14 +90,14 @@
           <div class="chat-input">
             <div class="prompt-box">
                 <input id="queryInput" name="query" placeholder="Ingresa tu consulta aquí" type="text">
-                <button type="submit">Consultar</button>
-                <select name="proyectoSeleccionado">
+                <select style="width: 50%;" name="proyectoSeleccionado">
                     <% proyectos.forEach(function(proyecto) { %>
                         <option value="<%= proyecto.id_proyecto + ',' + proyecto.nombre_proyecto + ',' + proyecto.descripcion + ',' + proyecto.fecha_inicio + ',' + proyecto.nombre_usuario + ',' + proyecto.enlaces %>">
                             <%= proyecto.nombre_proyecto %>
                         </option>
                     <% }); %>
                 </select>
+                <button type="submit">Consultar</button>
                 
                 
                 <span id="send-btn" class="material-symbols-rounded"></span>
@@ -218,38 +219,48 @@
 
           </div>
      </main>
-     <script>
-          document.getElementById('queryForm').addEventListener('submit', async (event) => {
-              event.preventDefault(); // Evitar que el formulario se envíe de forma predeterminada
-      
-              const query = document.getElementById('queryInput').value; // Obtener la consulta del input
-              const proyectoSeleccionado = document.querySelector('[name="proyectoSeleccionado"]').value; // Obtener el valor seleccionado del menú desplegable
-      
-              try {
-                  // Realizar una solicitud POST al servidor Node.js
-                  const response = await fetch('/query', {
-                      method: 'POST',
-                      headers: {
-                          'Content-Type': 'application/json'
-                      },
-                      body: JSON.stringify({ message: query, proyectoSeleccionado: proyectoSeleccionado }) // Enviar la consulta y el proyecto seleccionado como un objeto JSON
-                  });
-      
-                  const data = await response.json(); // Convertir la respuesta a JSON
-      
-                  // Mostrar la respuesta en el elemento de salida
-                  const outputElement = document.getElementById('output');
-                  outputElement.innerHTML = ''; // Limpiar contenido previo
-                  const preElement = document.createElement('pre');
-                  const codeElement = document.createElement('code');
-                  codeElement.textContent = data.response;
-                  preElement.appendChild(codeElement);
-                  outputElement.appendChild(preElement);
-              } catch (error) {
-                  console.error('Error:', error);
-              }
-          });
-      </script>
+     <script src="https://unpkg.com/luxon@3.3.0/build/global/luxon.min.js"></script>
+<script>
+    document.getElementById('queryForm').addEventListener('submit', async (event) => {
+        event.preventDefault(); // Evitar que el formulario se envíe de forma predeterminada
+
+        const query = document.getElementById('queryInput').value; // Obtener la consulta del input
+        const proyectoSeleccionado = document.querySelector('[name="proyectoSeleccionado"]').value; // Obtener el valor seleccionado del menú desplegable
+        
+        // Obtener la hora exacta de Perú
+        const horaPeru = luxon.DateTime.now().setZone('America/Lima').toLocaleString(luxon.DateTime.DATETIME_FULL);
+
+        try {
+            // Realizar una solicitud POST al servidor Node.js
+            const response = await fetch('/query', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ 
+                    message: query, 
+                    proyectoSeleccionado: proyectoSeleccionado, 
+                    horaPeru: horaPeru, 
+                    categoria: '<%= categoria.nombre_categoria %>' // Agregar el parámetro categoria
+                }) // Enviar la consulta, el proyecto seleccionado, la hora de Perú y la categoría como un objeto JSON
+            });
+
+            const data = await response.json(); // Convertir la respuesta a JSON
+
+            // Mostrar la respuesta en el elemento de salida
+            const outputElement = document.getElementById('output');
+            outputElement.innerHTML = ''; // Limpiar contenido previo
+            const preElement = document.createElement('pre');
+            const codeElement = document.createElement('code');
+            codeElement.textContent = data.response;
+            preElement.appendChild(codeElement);
+            outputElement.appendChild(preElement);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    });
+</script>
+
       
      <script src="/js/clients.js"></script>
 </body>

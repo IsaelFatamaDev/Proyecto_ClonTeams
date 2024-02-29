@@ -54,7 +54,7 @@ body.show-chatbot .chatbot-toggler span:last-child {
      position: fixed;
      right: 35px;
      bottom: 90px;
-     width: 420px;
+     width: 512px;
      background: #fff;
      border-radius: 15px;
      overflow: hidden;
@@ -96,8 +96,8 @@ header h2 {
 
 .chatbot .chatbox {
      overflow-y: auto;
-     height: 510px;
-     padding: 30px 20px 100px;
+     height: 450px;
+     padding: 32px 20px 100px;
 }
 
 .chatbot :where(.chatbox, input)::-webkit-scrollbar {

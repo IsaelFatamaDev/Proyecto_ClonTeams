@@ -29,11 +29,12 @@ app.use(bodyParser.json());
 const PORT = process.env.PORT || 3000;
 
 app.use("/", adminRouter);
-// Ruta para manejar las solicitudes POST del cliente
 app.post('/query', async (req, res) => {
     try {
         const userMessage = req.body.message; // Obtener el mensaje del usuario desde el cuerpo de la solicitud
         const proyectoSeleccionado = req.body.proyectoSeleccionado; // Obtener el proyecto seleccionado
+        const horaPeru = req.body.horaPeru; // Obtener la hora de Perú
+        const categoria = req.body.categoria; // Obtener la categoría
 
         // Iniciar una conversación con el modelo y enviar el mensaje del usuario
         const chat = model.startChat({
@@ -62,6 +63,8 @@ app.post('/query', async (req, res) => {
 
         formData.append('message', userMessage); // Agrega el mensaje del usuario
         formData.append('response', response.text()); // Agrega la respuesta del modelo generativo
+        formData.append('horaPeru', horaPeru); // Agrega la hora de Perú
+        formData.append('categoria', categoria); // Agrega la categoría
 
         // Realiza la solicitud POST a tu Google Sheet
         const googleSheetResponse = await fetch(googleSheetUrl, {
@@ -78,6 +81,7 @@ app.post('/query', async (req, res) => {
         res.status(500).json({ error: "Error interno del servidor" });
     }
 });
+
 app.listen(PORT, () => {
     console.log(`Server is running on port http://localhost:${PORT}`);
 });
