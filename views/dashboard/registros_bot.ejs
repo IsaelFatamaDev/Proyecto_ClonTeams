@@ -62,9 +62,77 @@
                </div>
           </div>
           <hr>
+          <div class="container">
+               <div class="titulos">
+                    <h3 class="titulo-categorias">Consultas Bot</h3>
+                    <p class="descripcion-categorias">El registro está conectado a Google Sheets y registra la
+                         información
+                         proporcionada por el bot.</p>
+               </div>
 
+               <table class="tabla-registros">
+                    <thead>
+                         <tr>
+                              <th>Consulta N°</th>
+                              <th>Fecha de Registro</th>
+                              <th>Usuario</th>
+                              <th>Categoría</th>
+                              <th>Acciones</th>
+                         </tr>
+                    </thead>
+                    <tbody>
+                         <tr>
+                              <td>1</td>
+                              <td>2024-02-28</td>
+                              <td>Usuario 1</td>
+                              <td>Categoría A</td>
+                              <td>
+                                   <button class="editar-btn">Ver conversacion</button>
+                              </td>
+                         </tr>
+                    </tbody>
+               </table>
+          </div>
      </main>
 
+     <!-- Modal -->
+     <section class="modal">
+          <div class="modal__container">
+               <div class="modal_contenerdor" id="modal_container">
+                    <h4 class="modal__title">Consulta N°</h4>
+                    <div class="modal__paragraph">
+                         <p>Categoría:</p>
+                         <div class="user--info">
+                              <p class="">Usuario: </p>
+                              <p>Fecha de Chat: </p>
+                         </div>
+                         <p>Consulta:</p>
+                         <p>Respuesta AI: </p>
+                    </div>
+               </div>
+
+               <a class="modal__close">Cerrar Ventana</a>
+          </div>
+     </section>
+
+     <script>
+          // JavaScript aquí
+          document.addEventListener("DOMContentLoaded", function () {
+               const editarBtns = document.querySelectorAll('.editar-btn');
+               const modal = document.querySelector('.modal');
+               const closeModal = document.querySelector('.modal__close');
+
+               editarBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                         modal.classList.add('modal--show');
+                    });
+               });
+
+               closeModal.addEventListener('click', () => {
+                    modal.classList.remove('modal--show');
+               });
+          });
+     </script>
 </body>
 
 </html>

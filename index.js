@@ -31,53 +31,53 @@ const PORT = process.env.PORT || 3000;
 app.use("/", adminRouter);
 // Ruta para manejar las solicitudes POST del cliente
 app.post('/query', async (req, res) => {
-  try {
-      const userMessage = req.body.message; // Obtener el mensaje del usuario desde el cuerpo de la solicitud
-      const proyectoSeleccionado = req.body.proyectoSeleccionado; // Obtener el proyecto seleccionado
+    try {
+        const userMessage = req.body.message; // Obtener el mensaje del usuario desde el cuerpo de la solicitud
+        const proyectoSeleccionado = req.body.proyectoSeleccionado; // Obtener el proyecto seleccionado
 
-      // Iniciar una conversación con el modelo y enviar el mensaje del usuario
-      const chat = model.startChat({
-          history: [
-              {
-                  role: "user",
-                  parts: [{ text: userMessage }],
-              },
-              {
-                  role: "model",
-                  parts: [{ text: "Hola, ¿cómo puedo ayudarte hoy?" }],
-              },
-          ],
-      });
+        // Iniciar una conversación con el modelo y enviar el mensaje del usuario
+        const chat = model.startChat({
+            history: [
+                {
+                    role: "user",
+                    parts: [{ text: userMessage }],
+                },
+                {
+                    role: "model",
+                    parts: [{ text: "Hola, ¿cómo puedo ayudarte hoy?" }],
+                },
+            ],
+        });
 
-      // Enviar mensaje al modelo generativo
-      const result = await chat.sendMessage("Hola, soy estudiante de vallegrande. Quiero que generes ideas innovadoras y códigos, basándote en este proyecto: " + proyectoSeleccionado + ". Todo el contexto de lo que voy a decir es importante, así que guíate basándote en esto: " + userMessage + ". Al final de responder todo, vas a decir esto: 'Soy Inteligencia Artificial de Valle Grande'.");
-      const response = result.response;
+        // Enviar mensaje al modelo generativo
+        const result = await chat.sendMessage("Hola, soy estudiante de vallegrande. Quiero que generes ideas innovadoras y códigos, basándote en este proyecto: " + proyectoSeleccionado + ". Todo el contexto de lo que voy a decir es importante, así que guíate basándote en esto: " + userMessage + ". Al final de responder todo, vas a decir esto: 'Soy Inteligencia Artificial de Valle Grande'.");
+        const response = result.response;
 
-      // Enviar la respuesta del modelo al cliente
-      res.json({ response: response.text() });
+        // Enviar la respuesta del modelo al cliente
+        res.json({ response: response.text() });
 
-      // Enviar los datos a tu Google Sheet
-      const googleSheetUrl = "https://script.google.com/macros/s/AKfycbxFOnT8h2kTsfd9EG6Bu82sykklkpMKxu3eHmPCt66FpNPXcvTNMxdMFYrJZAZ4-uRs/exec";
-      const formData = new URLSearchParams(); // Crea un objeto FormData para enviar los datos
+        // Enviar los datos a tu Google Sheet
+        const googleSheetUrl = "https://script.google.com/macros/s/AKfycbxFOnT8h2kTsfd9EG6Bu82sykklkpMKxu3eHmPCt66FpNPXcvTNMxdMFYrJZAZ4-uRs/exec";
+        const formData = new URLSearchParams(); // Crea un objeto FormData para enviar los datos
 
-      formData.append('message', userMessage); // Agrega el mensaje del usuario
-      formData.append('response', response.text()); // Agrega la respuesta del modelo generativo
+        formData.append('message', userMessage); // Agrega el mensaje del usuario
+        formData.append('response', response.text()); // Agrega la respuesta del modelo generativo
 
-      // Realiza la solicitud POST a tu Google Sheet
-      const googleSheetResponse = await fetch(googleSheetUrl, {
-          method: 'POST',
-          body: formData
-      });
+        // Realiza la solicitud POST a tu Google Sheet
+        const googleSheetResponse = await fetch(googleSheetUrl, {
+            method: 'POST',
+            body: formData
+        });
 
-      // Verifica la respuesta de Google Sheet si es necesario
-      const googleSheetResponseBody = await googleSheetResponse.text();
-      console.log('Respuesta de Google Sheet:', googleSheetResponseBody);
+        // Verifica la respuesta de Google Sheet si es necesario
+        const googleSheetResponseBody = await googleSheetResponse.text();
+        console.log('Respuesta de Google Sheet:', googleSheetResponseBody);
 
-  } catch (error) {
-      console.error("Error:", error);
-      res.status(500).json({ error: "Error interno del servidor" });
-  }
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ error: "Error interno del servidor" });
+    }
 });
 app.listen(PORT, () => {
-     console.log(`Server is running on port http://localhost:${PORT}`);
+    console.log(`Server is running on port http://localhost:${PORT}`);
 });

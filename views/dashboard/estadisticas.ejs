@@ -134,7 +134,7 @@
           });
 
           const categoriaProyectosChart = new Chart(document.getElementById('categoria-proyectos-chart'), {
-               type: 'bar',
+               type: 'pie',
                data: {
                     labels: categoriasConCantidadProyectos.map(categoria => categoria.nombre_categoria),
                     datasets: [{

@@ -29,6 +29,7 @@ body {
      color: #fff;
      overflow: hidden;
      transition: all 0.5s linear;
+     z-index: 1000;
 }
 
 .sidebar:hover {
@@ -119,7 +120,7 @@ body {
 .user--info {
      display: flex;
      align-items: center;
-     gap: 1rem;
+     gap: 2rem;
 }
 
 .user--info i {
@@ -429,17 +430,17 @@ hr {
 .grafico-container {
      text-align: center;
      flex: 1 1 45%;
-     /* Esto hace que cada gráfico ocupe el 45% del ancho disponible */
+
      margin-bottom: 20px;
 }
 
 .grafico-container:nth-child(3) {
      flex: 1 1 100%;
-     /* El tercer gráfico ocupa el 100% del ancho */
+
      max-height: 50vh;
-     /* Altura máxima */
+
      min-height: 30vh;
-     /* Altura mínima */
+
 }
 
 .grafico-titulo {
@@ -456,7 +457,171 @@ hr {
 canvas {
      margin-bottom: 30px;
      width: 100%;
-     /* El lienzo del gráfico ocupa todo el ancho disponible */
-     height: 100%;
-     /* El lienzo del gráfico ocupa todo el alto disponible */
+     height: 80%;
+}
+
+.container {
+     margin: 20px;
+     padding: 20px;
+     background-color: #fff;
+     border-radius: 5px;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.tabla-registros {
+     width: 100%;
+     border-collapse: collapse;
+}
+
+.tabla-registros th:first-child,
+.tabla-registros td:first-child {
+     width: fit-content;
+     min-width: 50px;
+     max-width: 50px;
+     text-align: center;
+}
+
+.tabla-registros th:nth-child(2),
+.tabla-registros td:nth-child(2) {
+     width: fit-content;
+     min-width: 50px;
+     max-width: 50px;
+     text-align: center;
+}
+
+.tabla-registros th,
+.tabla-registros td {
+     border: 1px solid #ddd;
+     padding: 8px;
+     text-align: left;
+}
+
+.tabla-registros th {
+     background-color: #f2f2f2;
+     color: #333;
+     text-align: center !important;
+}
+
+.tabla-registros tr:nth-child(even) {
+     background-color: #f9f9f9;
+}
+
+.tabla-registros tr:hover {
+     background-color: #f2f2f2;
+}
+
+.tabla-registros button {
+     text-align: center;
+     padding: 5px 10px;
+     background-color: #4CAF50;
+     border: none;
+     color: #fff;
+     cursor: pointer;
+     border-radius: 3px;
+     transition: background-color 0.3s;
+     display: block;
+     margin: 0 auto;
+}
+
+.tabla-registros button:hover {
+     background-color: #45a049;
+}
+
+.modal {
+     z-index: 100000;
+     position: fixed;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     background-color: #111111bd;
+     display: flex;
+     opacity: 0;
+     pointer-events: none;
+     transition: opacity .6s .9s;
+     --transform: translateY(-100vh);
+     --transition: transform .8s;
+}
+
+.modal--show {
+     z-index: 1000000;
+     opacity: 1;
+     pointer-events: unset;
+     transition: opacity .6s;
+     --transform: translateY(0);
+     --transition: transform .8s .8s;
+}
+
+.modal__container {
+     margin: auto;
+     width: 90%;
+     max-width: 600px;
+     max-height: 90%;
+     background-color: #fff;
+     border-radius: 6px;
+     padding: 3em 2.5em;
+     display: grid;
+     gap: 1em;
+     place-items: center;
+     grid-auto-columns: 100%;
+     transform: var(--transform);
+     transition: var(--transition);
+}
+
+.modal__title {
+     font-size: 1.5rem;
+     color: #1e3c72;
+     text-align: center;
+     margin-top: 0;
+}
+
+.modal__paragraph {
+     text-align: justify;
+     color: rgb(75, 75, 75);
+     font-size: 15px;
+     padding: 20px;
+}
+
+.modal__paragraph p {
+     padding: 15px;
+}
+
+.modal__user-info {
+     display: flex;
+     justify-content: space-between;
+}
+
+.modal__user {
+     font-weight: bold;
+}
+
+.modal__date {
+     font-style: italic;
+}
+
+.modal__categoria {
+     font-weight: bold;
+}
+
+.modal__respuesta {
+     font-weight: bold;
+}
+
+.modal__close {
+     text-decoration: none;
+     color: #fff;
+     background-color: #1e3c72;
+     padding: 1em 3em;
+     border: 1px solid;
+     border-radius: 6px;
+     display: inline-block;
+     font-weight: 900;
+     font-size: 13px;
+     transition: background-color .3s;
+     margin-top: 1em;
+}
+
+.modal__close:hover {
+     color: #1b3358;
+     background-color: #fff;
 }

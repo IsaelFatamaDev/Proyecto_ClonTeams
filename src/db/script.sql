@@ -172,4 +172,25 @@ GROUP BY
 ORDER BY
     cantidad_proyectos DESC
 LIMIT
-    1
+    1;
+
+UPDATE PROYECTOS
+SET
+    nombre_proyecto = "Creación de un chatBot",
+    descripcion = "Voy a crear un ChatBot con ayuda de NodeJs"
+WHERE
+    id_proyecto = 4;
+
+SELECT
+    *
+FROM
+    proyectos;
+
+select
+    *
+from
+    categorias;
+
+    DELETE FROM PROYECTOS WHERE id_proyecto= 4;
+
+    SELECT * FROM PROYECTOS;
