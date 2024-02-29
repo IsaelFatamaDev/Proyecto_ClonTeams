@@ -62,33 +62,62 @@
                </div>
           </div>
           <hr>
-          <h2>
-               <%= categoria.nombre_categoria %>
-          </h2>
+          <div class="categoria--title">
+               <h2>
+                    <%= categoria.nombre_categoria %>
+               </h2>
+          </div>
 
           <div class="container--proyectos">
-               <table>
-                    <thead>
-                         <tr>
-                              <th>Nombre del Proyecto</th>
-                              <th>Descripción</th>
-                              <th>Enlace</th>
-                         </tr>
-                    </thead>
-                    <tbody>
-                         <% proyectos.forEach(function(proyecto) { %>
-                              <tr>
-                                   <td>
-                                        <%= proyecto.nombre_proyecto %>
-                                   </td>
-                                   <td>
-                                        <%= proyecto.descripcion %>
-                                   </td>
-                                   <td><a href="<%= proyecto.enlaces %>">Ver Proyecto</a></td>
-                              </tr>
-                              <% }); %>
-                    </tbody>
-               </table>
+               <% if (proyectos.length===0) { %>
+                    <div class="datos">
+                         <i class="fa-regular fa-face-frown carita"></i>
+                         <p>Sin datos disponibles para la tabla.</p>
+                    </div>
+                    <% } else { %>
+                         <table class="tabla-proyectos">
+                              <thead>
+                                   <tr>
+                                        <th>Nombre del Proyecto</th>
+                                        <th>Descripción</th>
+                                        <th>Fecha de Subida</th>
+                                        <th>Autor</th>
+                                        <th>Enlace</th>
+                                   </tr>
+                              </thead>
+                              <tbody>
+                                   <% proyectos.forEach(function(proyecto) { %>
+                                        <tr>
+                                             <td>
+                                                  <%= proyecto.nombre_proyecto %>
+                                             </td>
+                                             <td>
+                                                  <%= proyecto.descripcion %>
+                                             </td>
+                                             <td>
+                                                  <% const fecha=new Date(proyecto.fecha_inicio); const
+                                                       dia=fecha.getDate().toString().padStart(2, '0' ); const
+                                                       mes=(fecha.getMonth() + 1).toString().padStart(2, '0' ); const
+                                                       anio=fecha.getFullYear(); const
+                                                       fechaFormateada=`${dia}/${mes}/${anio}`; %>
+                                                       <%= fechaFormateada %>
+                                             </td>
+                                             <td>
+                                                  <%= proyecto.nombre_usuario %>
+                                             </td>
+                                             <td>
+                                                  <a href="<%= proyecto.enlaces %>" target="_blank">Ver Proyecto</a>
+                                             </td>
+
+                                        </tr>
+                                        <% }); %>
+                              </tbody>
+                         </table>
+                         <% } %>
+                              <a href="/categorias" class="volver-btn">
+                                   <i class="fas fa-arrow-left"></i> Volver
+                              </a>
+
           </div>
      </main>
 </body>

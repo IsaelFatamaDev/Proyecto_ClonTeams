@@ -63,9 +63,55 @@
                </div>
           </div>
           <hr>
-
+          <h2 class="titulo-seccion">Usuarios Registrados</h2>
+          <div class="container-usuarios">
+               <table class="tabla-usuarios">
+                    <thead>
+                         <tr>
+                              <th>Nombre</th>
+                              <th>Apellido</th>
+                              <th>Email</th>
+                              <th>Fecha de Registro</th>
+                              <th>Perfil Github</th>
+                              <th>Cantidad de Proyectos</th>
+                              <th>Acciones</th>
+                         </tr>
+                    </thead>
+                    <tbody>
+                         <% usuarios.forEach(function(usuario) { %>
+                              <tr class="usuario">
+                                   <td>
+                                        <%= usuario.nombre %>
+                                   </td>
+                                   <td>
+                                        <%= usuario.apellido %>
+                                   </td>
+                                   <td>
+                                        <%= usuario.email %>
+                                   </td>
+                                   <td>
+                                        <% const fecha=new Date(usuario.fecha_registro); const
+                                             dia=fecha.getDate().toString().padStart(2, '0' ); const
+                                             mes=(fecha.getMonth() + 1).toString().padStart(2, '0' ); const
+                                             anio=fecha.getFullYear(); const fechaFormateada=`${dia}/${mes}/${anio}`; %>
+                                             <%= fechaFormateada %>
+                                   </td>
+                                   <td>
+                                        <%= usuario.perfil_Github %>
+                                   </td>
+                                   <td>
+                                        <%= usuario.cantidad_proyectos %>
+                                   </td>
+                                   <td>
+                                        <a href="/eliminar-usuario/<%= usuario.id_usuario %>"
+                                             class="eliminar-btn">Eliminar</a>
+                                   </td>
+                              </tr>
+                              <% }); %>
+                    </tbody>
+               </table>
+          </div>
      </main>
-
 </body>
 
 </html>

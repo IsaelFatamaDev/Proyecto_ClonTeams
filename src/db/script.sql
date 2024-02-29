@@ -8,7 +8,8 @@ CREATE TABLE USUARIOS (
     nombre VARCHAR(50),
     apellido VARCHAR(50),
     email VARCHAR(100),
-    fecha_registro DATE
+    fecha_registro DATE,
+    perfil_Github VARCHAR(100)
 );
 
 CREATE TABLE CATEGORIAS (
@@ -61,6 +62,25 @@ VALUES
 ('Juan', 'Pérez', 'juan@example.com', NOW()),
 ('María', 'González', 'maria@example.com', NOW()),
 ('Pedro', 'Sánchez', 'pedro@example.com', NOW());
+show tables;
 select * from proyectos;
-
+UPDATE PROYECTOS SET enlaces = "https://github.com/IsaelFatamaDev/Proyecto_ClonTeams" WHERE id_categoria = 1;
+UPDATE CATEGORIAS SET nombre_categoria = "JavaScript" WHERE id_categoria = 1;
 SELECT proyectos.*, categorias.nombre_categoria AS nombre_categoria FROM proyectos JOIN categorias ON proyectos.id_categoria = categorias.id_categoria WHERE proyectos.id_categoria = 1;
+
+SELECT 
+    u.id_usuario,
+    u.nombre,
+    u.apellido,
+    u.email,
+    u.fecha_registro,
+    COUNT(p.id_proyecto) AS cantidad_proyectos
+FROM 
+    usuarios u
+LEFT JOIN 
+    proyectos p ON u.id_usuario = p.id_usuario
+GROUP BY 
+    u.id_usuario, u.nombre, u.apellido, u.email, u.fecha_registro;
+
+ALTER TABLE usuarios
+ADD COLUMN perfil_Github VARCHAR(100);

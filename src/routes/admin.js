@@ -1,6 +1,5 @@
 import express from "express";
-import { obtenerDatos, obtenerDatosCategoria, obtenerProyectosPorCategoria, obtenerNombreCategoria } from "../controllers/controllers.js";
-
+import * as controllersJs from "../controllers/controllers.js";
 const router = express.Router();
 
 router.get("/panel", (req, res) => {
@@ -10,7 +9,7 @@ router.get("/panel", (req, res) => {
 });
 
 router.get('/categorias', (req, res) => {
-     obtenerDatosCategoria()
+     controllersJs.obtenerDatosCategoria()
           .then(categorias => {
                res.render("dashboard/categorias", {
                     title: "Categorias",
@@ -24,9 +23,9 @@ router.get('/categorias', (req, res) => {
 });
 router.get('/categorias/:categoria', (req, res) => {
      const categoria = req.params.categoria;
-     obtenerProyectosPorCategoria(categoria)
+     controllersJs.obtenerProyectosPorCategoria(categoria)
           .then(proyectos => {
-               obtenerNombreCategoria(categoria)
+               controllersJs.obtenerNombreCategoria(categoria)
                     .then(nombreCategoria => {
                          res.render("categoria/java", {
                               title: `Proyectos - ${nombreCategoria}`,
@@ -48,19 +47,48 @@ router.get('/categorias/:categoria', (req, res) => {
           });
 });
 
+router.get('/estadisticas', async (req, res) => {
+     try {
+          const cantidadUsuarios = await controllersJs.obtenerCantidadUsuarios();
+          const cantidadProyectos = await controllersJs.obtenerCantidadProyectos();
 
-
-router.get('/estadisticas', (req, res) => {
-     res.render("dashboard/estadisticas", {
-          title: "Estadisticas"
-     })
+          res.render("dashboard/estadisticas", {
+               title: "Estadísticas",
+               cantidadUsuarios,
+               cantidadProyectos,
+          });
+     } catch (error) {
+          console.error("Error al obtener estadísticas:", error);
+          res.status(500).send("Error al obtener estadísticas");
+     }
 })
 
 router.get('/usuarios', (req, res) => {
-     res.render("dashboard/usuarios", {
-          title: "Usuarios"
-     })
-})
+     controllersJs.obtenerUsuariosConProyectos()
+          .then(usuarios => {
+               res.render("dashboard/usuarios", {
+                    title: "Usuarios",
+                    usuarios: usuarios
+               });
+          })
+          .catch(error => {
+               console.error("Error al obtener usuarios:", error);
+               res.status(500).send("Error al obtener usuarios");
+          });
+});
+
+router.get('/eliminar-usuario/:id', (req, res) => {
+     const userId = req.params.id;
+     controllersJs.eliminarUsuario(userId)
+          .then(() => {
+               console.log(`Usuario con ID ${userId} eliminado correctamente`);
+               res.redirect('/usuarios');
+          })
+          .catch(error => {
+               console.error(`Error al eliminar usuario con ID ${userId}:`, error);
+               res.status(500).send(`Error al eliminar usuario con ID ${userId}`);
+          });
+});
 
 router.get('/registros_bot', (req, res) => {
      res.render("dashboard/registros_bot", {

@@ -2,9 +2,8 @@
 <html lang="en">
 
 <head>
-
      <%- include('../layouts/head') %>
-
+          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -37,7 +36,7 @@
                          <span>Estadísticas</span>
                     </a>
                </li>
-               <li >
+               <li>
                     <a href="/registros_bot">
                          <i class="fas fa-robot"></i>
                          <span>Registro Bot</span>
@@ -62,9 +61,64 @@
                </div>
           </div>
           <hr>
+          <h2 class="titulo-seccion">Estadísticas</h2>
+          <div class="graficos">
+               <div class="grafico-container">
+                    <h3 class="grafico-titulo">Cantidad de Usuarios Registrados</h3>
+                    <p class="grafico-descripcion">Descripción del gráfico de usuarios.</p>
+                    <canvas id="usuarios-chart"></canvas>
+               </div>
+               <div class="grafico-container">
+                    <h3 class="grafico-titulo">Cantidad de Proyectos Subidos</h3>
+                    <p class="grafico-descripcion">Descripción del gráfico de proyectos.</p>
+                    <canvas id="proyectos-chart"></canvas>
+               </div>
+          </div>
 
      </main>
 
+     <script>
+          const cantidadUsuarios = <%= cantidadUsuarios %>;
+          const cantidadProyectos = <%= cantidadProyectos %>;
+
+          const usuariosChart = new Chart(document.getElementById('usuarios-chart'), {
+               type: 'bar',
+               data: {
+                    labels: ['Usuarios'],
+                    datasets: [{
+                         label: 'Cantidad de Usuarios',
+                         data: [cantidadUsuarios],
+                    }]
+               },
+               options: {
+                    scales: {
+                         y: {
+                              beginAtZero: true,
+                              precision: 0
+                         }
+                    }
+               }
+          });
+
+          const proyectosChart = new Chart(document.getElementById('proyectos-chart'), {
+               type: 'bar',
+               data: {
+                    labels: ['Proyectos'],
+                    datasets: [{
+                         label: 'Cantidad de Proyectos',
+                         data: [cantidadProyectos],
+                    }]
+               },
+               options: {
+                    scales: {
+                         y: {
+                              beginAtZero: true,
+                              precision: 0
+                         }
+                    }
+               }
+          });
+     </script>
 </body>
 
 </html>
