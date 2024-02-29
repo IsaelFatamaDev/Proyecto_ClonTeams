@@ -124,6 +124,7 @@ body {
 
 .user--info i {
      font-size: 2rem;
+     color: var(--main--color);
 }
 
 .card--container {
@@ -215,4 +216,54 @@ hr {
      max-height: 100%;
      max-width: 100%;
      object-fit: contain;
+}
+
+.card--categoria {
+     background-color: #ffffff;
+     border: 1px solid #000000;
+     border-radius: 8px;
+     padding: 15px;
+     margin: 20px;
+     width: 200px;
+     height: 200px;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     text-decoration: none;
+     color: #333333;
+     text-align: center;
+}
+
+.card--categoria a {
+     text-decoration: none;
+     color: #333333;
+}
+
+.card--categoria a:hover {
+     color: #007bff;
+}
+
+.card--categoria i {
+     margin-bottom: 10px;
+     font-size: 24px;
+}
+
+.container--categorias {
+     display: flex;
+     flex-wrap: wrap;
+}
+
+@media (max-width: 992px) {
+     .card--categoria {
+          width: calc(50% - 15px);
+          max-width: calc(50% - 15px);
+     }
+}
+
+@media (max-width: 576px) {
+     .card--categoria {
+          width: 100%;
+          max-width: 100%;
+     }
 }

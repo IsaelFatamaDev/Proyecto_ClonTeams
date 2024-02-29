@@ -2,11 +2,8 @@
 <html lang="en">
 
 <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>ClonTeams</title>
-     <link rel="stylesheet" href="css/style.css">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+     <%- include('../layouts/head') %>
 
 </head>
 
@@ -17,42 +14,41 @@
           </div>
           <ul class="menu">
                <li class="active">
-                    <a href="">
+                    <a href="/panel">
                          <i class="fas fa-home"></i>
                          <span>Inicio</span>
                     </a>
                </li>
                <li>
-                    <a href="">
+                    <a href="/categorias">
                          <i class="fas fab fa-buffer"></i>
                          <span>Categorias</span>
                     </a>
                </li>
                <li>
-                    <a href="">
+                    <a href="/usuarios">
                          <i class="fas fas fa-user-alt"></i>
                          <span>Usuarios</span>
                     </a>
                </li>
                <li>
-                    <a href="">
+                    <a href="/estadisticas">
                          <i class="fas fas fa-chart-bar"></i>
                          <span>Estadísticas</span>
                     </a>
                </li>
                <li>
-                    <a href="">
+                    <a href="/registros_bot">
                          <i class="fas fa-robot"></i>
                          <span>Registro Bot</span>
                     </a>
                </li>
                <li class="logout">
-                    <a href="">
+                    <a href="/logout">
                          <i class="fas fas fa-sign-out-alt"></i>
                          <span>Cerrar Sesion</span>
                     </a>
                </li>
-
           </ul>
      </div>
      <main class="main--content">
@@ -101,7 +97,7 @@
                     </a>
                </div>
                <div class="button purple">
-                    <a href="/registros">
+                    <a href="/registros_bot">
                          <i class="fas fa-robot"></i>
                          <span>Registros del Bot</span>
                     </a>

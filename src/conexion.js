@@ -4,7 +4,7 @@ const conexion = mysql.createConnection({
      host: 'localhost',
      user: 'root',
      password: 'admin',
-     database: 'ser'
+     database: 'clonteams'
 });
 
 conexion.connect((err) => {
