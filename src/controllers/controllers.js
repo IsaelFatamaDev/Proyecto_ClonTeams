@@ -227,3 +227,15 @@ export async function eliminarProyecto(idProyecto) {
           throw new Error("Error al eliminar el proyecto");
      }
 }
+export function obtenerAdministradorPorCorreo(email_admin) {
+     return new Promise((resolve, reject) => {
+          const query = "SELECT * FROM admins WHERE email_admin = ?";
+          conexion.query(query, [email_admin], (error, resultados) => {
+               if (error) {
+                    reject(error);
+               } else {
+                    resolve(resultados[0]); // Suponiendo que esperas solo un administrador por correo
+               }
+          });
+     });
+}

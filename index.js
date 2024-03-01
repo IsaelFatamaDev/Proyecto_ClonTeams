@@ -7,7 +7,6 @@ import fetch from "node-fetch";
 import userRoutes from "./src/routes/user.js";
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
 import session from 'express-session';
-import passport from "./passport-config.js";
 
 const app = express();
 
@@ -35,12 +34,6 @@ app.use(express.static(path.join("public/")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 const PORT = process.env.PORT || 3000;
-
-app.use("/", adminRouter);
-app.use("/", userRoutes)
-app.use('/', (req, res) => {
-    res.render('users/inicio')
-})
 
 app.post('/query', async (req, res) => {
     try {
@@ -76,6 +69,8 @@ app.post('/query', async (req, res) => {
 
         formData.append('message', userMessage); // Agrega el mensaje del usuario
         formData.append('response', response.text()); // Agrega la respuesta del modelo generativo
+        formData.append('horaPeru', horaPeru); // Agrega la hora de Perú
+        formData.append('categoria', categoria); // Agrega la categoría
 
         // Realiza la solicitud POST a tu Google Sheet
         const googleSheetResponse = await fetch(googleSheetUrl, {
@@ -92,6 +87,13 @@ app.post('/query', async (req, res) => {
         res.status(500).json({ error: "Error interno del servidor" });
     }
 });
+
+app.use("/", adminRouter);
+app.use("/", userRoutes)
+app.use('/', (req, res) => {
+    res.render('users/inicio')
+})
+
 app.listen(PORT, () => {
     console.log(`Server is running on port http://localhost:${PORT}`);
 });
