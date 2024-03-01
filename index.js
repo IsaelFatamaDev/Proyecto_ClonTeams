@@ -6,8 +6,16 @@ import morgan from "morgan";
 import fetch from "node-fetch";
 import userRoutes from "./src/routes/user.js";
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
+import session from 'express-session';
+import passport from "./passport-config.js";
 
 const app = express();
+
+app.use(session({
+    secret: 'demoooooooooo',
+    resave: false,
+    saveUninitialized: false
+}));
 
 // Configurar la API key
 const API_KEY = "AIzaSyAoSdT1zxPrR-W3GT4y9yusaQ-RaKKmwJQ";
@@ -23,14 +31,17 @@ const MODEL_NAME = "gemini-1.0-pro";
 const model = genAI.getGenerativeModel({ model: MODEL_NAME });
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join("public/")));
-// Configurar la aplicación para analizar el cuerpo de las solicitudes
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 const PORT = process.env.PORT || 3000;
 
 app.use("/", adminRouter);
 app.use("/", userRoutes)
-// Ruta para manejar las solicitudes POST del cliente
+app.use('/', (req, res) => {
+    res.render('users/inicio')
+})
+
 app.post('/query', async (req, res) => {
     try {
         const userMessage = req.body.message; // Obtener el mensaje del usuario desde el cuerpo de la solicitud

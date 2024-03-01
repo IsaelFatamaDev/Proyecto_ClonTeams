@@ -10,8 +10,17 @@ CREATE TABLE
         apellido VARCHAR(50),
         email VARCHAR(100),
         fecha_registro DATE,
-        perfil_Github VARCHAR(100)
+        perfil_Github VARCHAR(100),
+        PASSWORD VARCHAR(100)
     );
+
+ALTER TABLE USUARIOS
+ADD COLUMN password VARCHAR(100);
+
+SELECT
+    *
+FROM
+    usuarios;
 
 CREATE TABLE
     CATEGORIAS (
@@ -54,8 +63,17 @@ CREATE TABLE
         id_admin INT AUTO_INCREMENT PRIMARY KEY,
         nombre_admin VARCHAR(50),
         apellido_admin VARCHAR(50),
-        email_admin VARCHAR(100)
+        email_admin VARCHAR(100),
+        password_admin VARCHAR(100),
+        fecha_admin DATE
     );
+
+SELECT
+    *
+FROM
+    usuarios;
+
+drop Table admins;
 
 CREATE TABLE
     CONTACTO (

@@ -10,7 +10,7 @@
           Detalles del Proyecto
      </title>
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-     <link rel="stylesheet" href="/css/user.css" />
+     <link rel="stylesheet" href="/css/user.css" /><link rel="stylesheet" href="/css/categorias.css" />
      <link rel="shortcut icon" href="/img/Icono.png" type="image/x-icon">
      <!-- Google Fonts Link For Icons -->
      <link rel="stylesheet"
@@ -18,7 +18,7 @@
      <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
      <link rel="stylesheet" href="/css/bot.css">
-     
+
 </head>
 <style>
      form {
@@ -48,9 +48,6 @@
           border-radius: 15px;
      }
 
-     button:hover {
-          background-color: #0056b3;
-     }
 
      .output {
           background-color: #f4f4f4;
@@ -68,6 +65,7 @@
           white-space: pre-wrap;
           word-wrap: break-word;
      }
+
      .btn {
           display: inline-block;
           padding: 0.9rem 1.9rem;
@@ -76,34 +74,18 @@
           border-radius: 16px;
           text-transform: capitalize;
           transition: 0.3s;
-      }
+     }
+
+     .btn:hover {
+          background-color: #64bcf4 !important;
+          transform: scale(1) !important;
+     }
 </style>
 
 <body>
-  
+
      <main class="main--content">
-          <header style="position: sticky;">
-               <div class="container">
-                    <div class="logo">
-                         <img src="/img/Icono.png" alt="Logo" />
-                         <h3>ClonTeams</h3>
-                    </div>
 
-                    <div class="links">
-                         <ul>
-                              <li><a href="/proyectos">Proyectos</a></li>
-                              <li><a href="/loginUser" class="btn">Usuarios</a></li>
-                              <li><a href="/loginAdmin" class="btn">Administradores</a></li>
-                         </ul>
-                    </div>
-
-                    <div class="overlay"></div>
-
-                    <div class="hamburger-menu">
-                         <div class="bar"></div>
-                    </div>
-               </div>
-          </header>
           <hr>
           <div class="categoria--title">
                <h2>
@@ -114,45 +96,47 @@
           </div>
 
           <div class="container--proyectos">
-                
-                         <table class="tabla-proyectos">
-                              <thead>
-                                   <tr>
-                                        <th>Fecha de Subida</th>
-                                        <th>Autor</th>
-                                        <th>Proyecto</th>
-                                        <th>Unise</th>
-                                   </tr>
-                              </thead>
-                              <tbody>
-                                        <tr>
-                                             <td text-align: center;">
-                                                   <% const fecha=new Date(proyecto.fecha_inicio); const
-                                                  dia=fecha.getDate().toString().padStart(2, '0' ); const mes=(fecha.getMonth() +
-                                                  1).toString().padStart(2, '0' ); const anio=fecha.getFullYear(); const
-                                                  fechaFormateada=`${dia}/${mes}/${anio}`; %>
-                                                  <%= fechaFormateada %>
-                                             </td>
-                                             <td>
-                                                 <%= proyecto.nombre_usuario %>
-                                             </td>
-                                             <td>
-                                                  <a class="btn" href="<%= proyecto.enlaces %>">Ver Proyecto</a>
-                                             </td>
-                                             <td>
-                                                  <a class="btn" href="/proyectos/categoria/enviar-correo?id=<%= proyecto.id_proyecto %>">Ver Proyecto</a>
 
-                                             </td>
-                                     
-                                        </tr>
-                              </tbody>
-                         </table>
-                              <a href="/proyectos" class="volver-btn">
-                                   <i class="fas fa-arrow-left"></i> Volver
-                              </a>
+               <table class="tabla-proyectos">
+                    <thead>
+                         <tr>
+                              <th>Fecha de Subida</th>
+                              <th>Autor</th>
+                              <th>Proyecto</th>
+                              <th>Unise</th>
+                         </tr>
+                    </thead>
+                    <tbody>
+                         <tr>
+                              <td text-align: center;">
+                                   <% const fecha=new Date(proyecto.fecha_inicio); const
+                                        dia=fecha.getDate().toString().padStart(2, '0' ); const mes=(fecha.getMonth() +
+                                        1).toString().padStart(2, '0' ); const anio=fecha.getFullYear(); const
+                                        fechaFormateada=`${dia}/${mes}/${anio}`; %>
+                                        <%= fechaFormateada %>
+                              </td>
+                              <td>
+                                   <%= proyecto.nombre_usuario %>
+                              </td>
+                              <td>
+                                   <a class="btn" href="<%= proyecto.enlaces %>">Ver Proyecto</a>
+                              </td>
+                              <td>
+                                   <a class="btn"
+                                        href="/proyectos/categoria/enviar-correo?id=<%= proyecto.id_proyecto %>">Ver
+                                        Proyecto</a>
+
+                              </td>
+
+                         </tr>
+                    </tbody>
+               </table>
+               <a href="/proyectos" class="volver-btn">
+                    <i class="fas fa-arrow-left"></i> Volver
+               </a>
           </div>
      </main>
-  
+
 
 
 </body>

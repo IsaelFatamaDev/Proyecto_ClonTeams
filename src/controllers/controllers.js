@@ -155,3 +155,26 @@ WHERE proyectos.id_proyecto = ?`;
 }
 
 
+export function registrarNuevoAdministrador(nombre_admin, apellido_admin, email_admin, password_admin) {
+     return new Promise((resolve, reject) => {
+          const query = "INSERT INTO admins (nombre_admin, apellido_admin, email_admin, password_admin, fecha_admin) VALUES (?, ?, ?, ?,NOW())";
+          conexion.query(query, [nombre_admin, apellido_admin, email_admin, password_admin], (error, resultados) => {
+               if (error) {
+                    reject(error);
+               } else {
+                    resolve();
+               }
+          });
+     });
+} export function obtenerProyectosPorUsuario(idUsuario) {
+     return new Promise((resolve, reject) => {
+          const query = `SELECT * FROM proyectos WHERE id_usuario = ?`;
+          conexion.query(query, [idUsuario], (error, resultados) => {
+               if (error) {
+                    reject(error);
+               } else {
+                    resolve(resultados);
+               }
+          });
+     });
+}
