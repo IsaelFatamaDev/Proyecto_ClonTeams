@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="/css/style.css">
+     <title>
+          Proyectos del Usuario
+     </title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+     <link rel="stylesheet" href="/css/user.css" />
+     <link rel="stylesheet" href="/css/categorias.css" />
+     <link rel="shortcut icon" href="/img/Icono.png" type="image/x-icon">
+     <!-- Google Fonts Link For Icons -->
+     <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+     <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+     <link rel="stylesheet" href="/css/bot.css">
+     <style>
+          .card--categoria {
+               background-color: #ffffff;
+               /* border: 1px solid #ddd; */
+               border-radius: 8px;
+               padding: 20px;
+               margin: 20px;
+               width: 400px;
+               height: 300px;
+               display: flex;
+               flex-direction: column;
+               justify-content: center;
+               align-items: center;
+               text-decoration: none;
+               color: #333;
+               text-align: center;
+               transition: transform 0.3s ease, box-shadow 0.3s ease;
+          }
+
+          .cards2 {
+               /* display: grid; */
+               padding: 50px;
+               gap: 2rem;
+               display: flex;
+               flex-direction: row;
+               flex-wrap: wrap;
+               justify-content: center;
+               align-items: center;
+          }
+
+          .btn {
+               display: inline-block;
+               padding: 0.9rem 1.9rem;
+               color: #fff !important;
+               background-color: #64bcf4;
+               border-radius: 16px;
+               text-transform: capitalize;
+               transition: 0.3s;
+               border: none;
+               cursor: pointer;
+               margin-top: 10px;
+          }
+
+          .btn:hover {
+               background-color: #4589ff;
+          }
+
+          .btn-2 {
+               display: inline-block;
+               padding: 0.9rem 1.9rem;
+               color: #fff !important;
+               background-color: #f4a764;
+               border-radius: 16px;
+               text-transform: capitalize;
+               transition: 0.3s;
+               border: none;
+               cursor: pointer;
+               margin-top: 10px;
+               float: inline-end;
+          }
+     </style>
+</head>
+
+<body>
+     <main class="main--content">
+          <div class="header--wrapper">
+               <div class="header--title">
+                    <span>Proyectos</span>
+                    <h2>Bienvenido <%= userData.nombres %>
+                    </h2>
+               </div>
+
+               <form action="/logout" method="post">
+                    <button type="submit" class="btn">Regresar</button>
+               </form>
+          </div>
+
+          <hr>
+          <h2 class="titulo-seccion">Tus Proyectos</h2>
+          <div class="cards2">
+               <% if (proyectosUsuario.length> 0) { %>
+                    <% proyectosUsuario.forEach(function(proyecto) { %>
+                         <div class="card--categoria">
+                              <h5>
+                                   <%= proyecto.id_proyecto %>
+                              </h5>
+                              <h3>
+                                   <%= proyecto.nombre_proyecto %>
+                              </h3>
+                              <p>
+                                   Descripción: <%= proyecto.descripcion %>
+                              </p>
+                              <p>
+                                   Fecha de inicio: <% const fecha=new Date(proyecto.fecha_inicio); const
+                                        dia=fecha.getDate().toString().padStart(2, '0' ); const mes=(fecha.getMonth() +
+                                        1).toString().padStart(2, '0' ); const anio=fecha.getFullYear(); const
+                                        fechaFormateada=`${dia}/${mes}/${anio}`; %>
+                                        <%= fechaFormateada %>
+                              </p>
+                              <p>
+                                   Categoría: <%= proyecto.nombre_categoria %>
+                              </p>
+                              <form action="/eliminarProyecto" method="post">
+                                   <input type="hidden" name="id_proyecto" value="<%= proyecto.id_proyecto %>">
+                                   <button type="submit" class="btn">Eliminar</button>
+                              </form>
+                         </div>
+                         <% }); %>
+                              <% } else { %>
+                                   <p>No se encontraron proyectos para este usuario.</p>
+                                   <% } %>
+          </div>
+          <div class="btn-agregar">
+               <form action="/agregarProyecto" method="get">
+                    <button type="submit" class="btn-2">Agregar Proyecto</button>
+               </form>
+          </div>
+     </main>
+
+
+
+</body>
+
+</html>

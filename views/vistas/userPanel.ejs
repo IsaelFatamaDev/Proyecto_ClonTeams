@@ -5,9 +5,6 @@
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link rel="stylesheet" href="/css/style.css">
-     <title>
-          Panel Usuario
-     </title>
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
      <link rel="stylesheet" href="/css/user.css" />
      <link rel="stylesheet" href="/css/categorias.css" />
@@ -17,143 +14,118 @@
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
      <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
-     <link rel="stylesheet" href="/css/bot.css">
+     <title>Panel Usuario</title>
+     <style>
+          .btn {
+               display: inline-block;
+               padding: 0.9rem 1.9rem;
+               color: #fff !important;
+               background-color: #64bcf4;
+               border-radius: 16px;
+               text-transform: capitalize;
+               transition: 0.3s;
+               border: none;
+               cursor: pointer;
+               margin-top: 10px;
+          }
 
+          .btn:hover {
+               background-color: #4589ff;
+          }
+
+          .card {
+               margin-top: 20px;
+               background: #fff;
+               border-radius: 10px;
+               box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+               overflow: hidden;
+          }
+
+          .card-header {
+               background: #64bcf4;
+               color: #fff;
+               padding: 15px;
+               font-size: 1.2em;
+               font-weight: bold;
+               text-align: center;
+          }
+
+          .card-body {
+               padding: 20px;
+          }
+
+          .card-body canvas {
+               max-width: 100%;
+               height: auto;
+          }
+
+          .categoria--title {
+               text-align: center;
+               margin-bottom: 20px;
+          }
+     </style>
 </head>
-<style>
-     form {
-          margin-bottom: 20px;
-     }
-
-     .prompt-box {
-          display: flex;
-          align-items: center;
-     }
-
-     label {
-          margin-right: 10px;
-     }
-
-     input[type="text"] {
-          padding: 5px;
-          width: 100%;
-     }
-
-     button {
-          padding: 5px 10px;
-          background-color: #007bff;
-          color: #fff;
-          border: none;
-          cursor: pointer;
-          border-radius: 15px;
-     }
-
-     button:hover {
-          background-color: #0056b3;
-     }
-
-     .output {
-          background-color: #f4f4f4;
-          padding: 20px;
-     }
-
-     code {
-          background-color: #f8f8f8;
-          padding: 5px;
-          display: block;
-          margin-bottom: 10px;
-     }
-
-     pre {
-          white-space: pre-wrap;
-          word-wrap: break-word;
-     }
-
-     .btn {
-          display: inline-block;
-          padding: 0.9rem 1.9rem;
-          color: #fff !important;
-          background-color: #64bcf4;
-          border-radius: 16px;
-          text-transform: capitalize;
-          transition: 0.3s;
-     }
-</style>
 
 <body>
-
      <main class="main--content">
-
-
+          <div class="header--wrapper">
+               <div class="header--title">
+                    <span>Proyectos</span>
+                    <h2>Bienvenido <%= userData.nombres %>
+                    </h2>
+               </div>
+               <form action="/logout" method="post">
+                    <button type="submit" class="btn">Regresar</button>
+               </form>
+          </div>
           <hr>
           <div class="categoria--title">
                <h2>
-                Bienvenido:   <%= userdata.nombre %>
+                    Bienvenido: <%= userData.nombres %>
                </h2>
+               <p>Cantidad de proyectos: <%= cantidadProyectos %>
+               </p>
           </div>
 
-          <div class="container--proyectos">
-               <% if (userdata.length===0) { %>
-                    <div class="datos">
-                         <i class="fa-regular fa-face-frown carita"></i>
-                         <p>Sin datos disponibles para la tabla.</p>
-                    </div>
-                    <% } else { %>
-                         <table class="tabla-proyectos">
-                              <thead>
-                                   <tr>
-                                        <th style="color: white;">.</th>
-                                        <th>Nombre del Proyecto</th>
-                                        <th>Descripción</th>
-                                        <th>Fecha de Subida</th>
-                                        <th>Autor</th>
-                                        <th>Enlace</th>
-                                        <th>Unirse</th>
-                                   </tr>
-                              </thead>
-                              <tbody>
-                                   <% userdata.forEach(function(proyecto, index) { %>
-                                        <tr>
-                                             <td style="color: white; text-align: center;">
-                                                  <%= userdata.id_proyecto %>
-                                             </td>
-                                             <td>
-                                                  <%= userdata.nombre_proyecto %>
-                                             </td>
-                                             <td>
-                                                  <%= userdata.descripcion %>
-                                             </td>
-                                             <td>
-                                                  <% const fecha=new Date(userdata.fecha_inicio); const
-                                                       dia=fecha.getDate().toString().padStart(2, '0' ); const
-                                                       mes=(fecha.getMonth() + 1).toString().padStart(2, '0' ); const
-                                                       anio=fecha.getFullYear(); const
-                                                       fechaFormateada=`${dia}/${mes}/${anio}`; %>
-                                                       <%= fechaFormateada %>
-                                             </td>
-                                             <td>
-                                                  <%= userdata.nombre_usuario %>
-                                             </td>
-                                             <td>
-                                                  <a href="<%= userdata.enlaces %>" class="btn" target="_blank">Link</a>
-                                             </td>
-                                             <td>
-                                                  <a href="/proyectos/categoria/unirse?id=<%= userdata.id_proyecto %>"
-                                                       class="btn">Unirse</a>
-                                             </td>
-                                        </tr>
-                                        <% }); %>
-                              </tbody>
-                         </table>
-                         <% } %>
-                              <a href="/logout" class="volver-btn">
-                                   <i class="fas fa-arrow-left"></i> Cerrar Sesión
-                              </a>
+          <div class="card">
+               <div class="card-header">
+                    <a href="/gestionProyectos/<%= userData.nombres %>">Gestionar Proyectos</a>
+               </div>
+          </div>
+          <!-- Tarjeta para mostrar proyectos subidos con Chart.js -->
+          <div class="card">
+               <div class="card-header">
+                    Proyectos Subidos (con Chart.js)
+               </div>
+               <div class="card-body">
+                    <!-- Agrega aquí el canvas para el gráfico de Chart.js -->
+                    <canvas id="proyectos-chart" width="400" height="200"></canvas>
+               </div>
           </div>
      </main>
-   
-
-     <script src="/js/clients.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+     <script>
+          const cantidadProyectos = <%= cantidadProyectos %>;
+          const proyectosChart = new Chart(document.getElementById('proyectos-chart'), {
+               type: 'bar',
+               data: {
+                    labels: ['Proyectos'],
+                    datasets: [{
+                         label: 'Cantidad de Proyectos',
+                         data: [cantidadProyectos],
+                         backgroundColor: 'rgba(255, 99, 132, 0.6)'
+                    }]
+               },
+               options: {
+                    scales: {
+                         y: {
+                              beginAtZero: true,
+                              precision: 0
+                         }
+                    }
+               }
+          });
+     </script>
 </body>
 
 </html>

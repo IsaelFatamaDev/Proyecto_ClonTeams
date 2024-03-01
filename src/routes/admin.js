@@ -153,6 +153,6 @@ router.post('/registroAdmin', async (req, res) => {
 
 router.get('/logoutAdmin', (req, res) => {
      req.session.destroy();
-     res.redirect('/loginAdmin');
+     res.redirect('/');
 });
 export default router;

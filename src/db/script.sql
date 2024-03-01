@@ -257,3 +257,7 @@ SELECT
     *
 FROM
     usuarios;
+
+    SELECT * FROM proyectos WHERE id_usuario = (SELECT id_usuario FROM usuarios WHERE nombre = 'Isael Javier')
+
+    SELECT * FROM proyectos WHERE id_usuario = (SELECT id_usuario FROM usuarios WHERE nombre = 'Javi')

@@ -166,7 +166,8 @@ export function registrarNuevoAdministrador(nombre_admin, apellido_admin, email_
                }
           });
      });
-} export function obtenerProyectosPorUsuario(idUsuario) {
+}
+export function obtenerProyectosPorUsuario(idUsuario) {
      return new Promise((resolve, reject) => {
           const query = `SELECT * FROM proyectos WHERE id_usuario = ?`;
           conexion.query(query, [idUsuario], (error, resultados) => {
@@ -177,4 +178,52 @@ export function registrarNuevoAdministrador(nombre_admin, apellido_admin, email_
                }
           });
      });
+}
+export function obtenerCantidadProyectosPorUsuario(nombreUsuario) {
+     return new Promise((resolve, reject) => {
+          const query = `
+          SELECT COUNT(*) AS cantidad_proyectos
+          FROM proyectos
+          WHERE id_usuario = (
+               SELECT id_usuario 
+               FROM usuarios 
+               WHERE nombre = ?
+          )`;
+          conexion.query(query, [nombreUsuario], (error, resultado) => {
+               if (error) {
+                    reject(error);
+               } else {
+                    resolve(resultado[0].cantidad_proyectos);
+               }
+          });
+     });
+}
+
+
+export function obtenerProyectosPorNombre(nombreUsuario) {
+     return new Promise((resolve, reject) => {
+          const query = `
+               SELECT proyectos.*, categorias.nombre_categoria AS nombre_categoria
+               FROM proyectos
+               JOIN categorias ON proyectos.id_categoria = categorias.id_categoria
+               JOIN usuarios ON proyectos.id_usuario = usuarios.id_usuario
+               WHERE usuarios.nombre = ?;
+          `;
+          conexion.query(query, [nombreUsuario], (error, resultados) => {
+               if (error) {
+                    reject(error);
+               } else {
+                    resolve(resultados);
+               }
+          });
+     });
+}
+export async function eliminarProyecto(idProyecto) {
+     try {
+          await conexion.query("DELETE FROM proyectos WHERE id_proyecto = ?", [idProyecto]);
+          console.log(`Proyecto con ID ${idProyecto} eliminado correctamente.`);
+     } catch (error) {
+          console.error("Error al eliminar el proyecto:", error);
+          throw new Error("Error al eliminar el proyecto");
+     }
 }
