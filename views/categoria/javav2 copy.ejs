@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="/css/categorias.css">
+     <title>
+          <%= title %>
+     </title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+     <link rel="shortcut icon" href="/img/Icono.png" type="image/x-icon">
+     <!-- Google Fonts Link For Icons -->
+     <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+     <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+
+
+</head>
+
+<body>
+
+     <main class="main--content">
+
+          <div class="categoria--title">
+               <h2>
+                    <%= categoria.nombre_categoria %>
+               </h2>
+               <p>Cantidad de proyectos: <%= proyectos.length %>
+               </p>
+          </div>
+          <hr>
+          <div class="container--proyectos">
+               <% if (proyectos.length===0) { %>
+                    <div class="datos">
+                         <i class="fa-regular fa-face-frown carita"></i>
+                         <p>Sin datos disponibles para la tabla.</p>
+                    </div>
+                    <% } else { %>
+                         <table class="tabla-proyectos">
+                              <thead>
+                                   <tr>
+                                        <th style="color: white;">.</th>
+                                        <th>Nombre del Proyecto</th>
+                                        <th>Descripción</th>
+                                        <th>Fecha de Subida</th>
+                                        <th>Autor</th>
+                                        <th>Enlace</th>
+                                        <th>Unirse</th>
+                                   </tr>
+                              </thead>
+                              <tbody>
+                                   <% proyectos.forEach(function(proyecto, index) { %>
+                                        <tr>
+                                             <td style="color: white; text-align: center;">
+                                                  <%= proyecto.id_proyecto %>
+                                             </td>
+                                             <td>
+                                                  <%= proyecto.nombre_proyecto %>
+                                             </td>
+                                             <td>
+                                                  <%= proyecto.descripcion %>
+                                             </td>
+                                             <td>
+                                                  <% const fecha=new Date(proyecto.fecha_inicio); const
+                                                       dia=fecha.getDate().toString().padStart(2, '0' ); const
+                                                       mes=(fecha.getMonth() + 1).toString().padStart(2, '0' ); const
+                                                       anio=fecha.getFullYear(); const
+                                                       fechaFormateada=`${dia}/${mes}/${anio}`; %>
+                                                       <%= fechaFormateada %>
+                                             </td>
+                                             <td>
+                                                  <%= proyecto.nombre_usuario %>
+                                             </td>
+                                             <td>
+                                                  <a href="<%= proyecto.enlaces %>" target="_blank">Ver Proyecto</a>
+                                             </td>
+                                             <td>
+                                                  <a href="/proyectos/categoria/unirse?id=<%= proyecto.id_proyecto %>"
+                                                       class="unirse-btn">Unirse</a>
+                                             </td>
+                                        </tr>
+                                        <% }); %>
+                              </tbody>
+                         </table>
+                         <% } %>
+                              <a href="/proyectos" class="volver-btn">
+                                   <i class="fas fa-arrow-left"></i> Volver
+                              </a>
+          </div>
+     </main>
+
+
+</body>
+
+</html>

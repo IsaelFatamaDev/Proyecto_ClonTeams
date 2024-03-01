@@ -1,38 +1,160 @@
-<!-- proyectoDetalles.ejs -->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Detalles del Proyecto</title>
-     <!-- Agrega tus estilos CSS si es necesario -->
+     <link rel="stylesheet" href="/css/style.css">
+     <title>
+          Detalles del Proyecto
+     </title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+     <link rel="stylesheet" href="/css/user.css" />
+     <link rel="shortcut icon" href="/img/Icono.png" type="image/x-icon">
+     <!-- Google Fonts Link For Icons -->
+     <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+     <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+     <link rel="stylesheet" href="/css/bot.css">
+     
 </head>
+<style>
+     form {
+          margin-bottom: 20px;
+     }
+
+     .prompt-box {
+          display: flex;
+          align-items: center;
+     }
+
+     label {
+          margin-right: 10px;
+     }
+
+     input[type="text"] {
+          padding: 5px;
+          width: 100%;
+     }
+
+     button {
+          padding: 5px 10px;
+          background-color: #007bff;
+          color: #fff;
+          border: none;
+          cursor: pointer;
+          border-radius: 15px;
+     }
+
+     button:hover {
+          background-color: #0056b3;
+     }
+
+     .output {
+          background-color: #f4f4f4;
+          padding: 20px;
+     }
+
+     code {
+          background-color: #f8f8f8;
+          padding: 5px;
+          display: block;
+          margin-bottom: 10px;
+     }
+
+     pre {
+          white-space: pre-wrap;
+          word-wrap: break-word;
+     }
+     .btn {
+          display: inline-block;
+          padding: 0.9rem 1.9rem;
+          color: #fff !important;
+          background-color: #64bcf4;
+          border-radius: 16px;
+          text-transform: capitalize;
+          transition: 0.3s;
+      }
+</style>
 
 <body>
-     <h1>Detalles del Proyecto</h1>
-     <div>
-          <h2>Nombre del Proyecto: <%= proyecto.nombre_proyecto %>
-          </h2>
-          <p>Descripción: <%= proyecto.descripcion %>
-          </p>
-          <p>Fecha de Subida: <% const fecha=new Date(proyecto.fecha_inicio); const
-                    dia=fecha.getDate().toString().padStart(2, '0' ); const mes=(fecha.getMonth() +
-                    1).toString().padStart(2, '0' ); const anio=fecha.getFullYear(); const
-                    fechaFormateada=`${dia}/${mes}/${anio}`; %>
-                    <%= fechaFormateada %>
-          </p>
-          <p>Autor: <%= proyecto.nombre_usuario %>
-          </p>
-          <p>Enlace: <a href="<%= proyecto.enlaces %>" target="_blank">Ver Proyecto</a></p>
+  
+     <main class="main--content">
+          <header style="position: sticky;">
+               <div class="container">
+                    <div class="logo">
+                         <img src="/img/Icono.png" alt="Logo" />
+                         <h3>ClonTeams</h3>
+                    </div>
 
-     </div>
-     <a href="/proyectos/categoria/enviar-correo?id=<%= proyecto.id_proyecto %>" class="enviar-correo-btn">Enviar
-          Correo</a>
+                    <div class="links">
+                         <ul>
+                              <li><a href="/proyectos">Proyectos</a></li>
+                              <li><a href="/loginUser" class="btn">Usuarios</a></li>
+                              <li><a href="/loginAdmin" class="btn">Administradores</a></li>
+                         </ul>
+                    </div>
+
+                    <div class="overlay"></div>
+
+                    <div class="hamburger-menu">
+                         <div class="bar"></div>
+                    </div>
+               </div>
+          </header>
+          <hr>
+          <div class="categoria--title">
+               <h2>
+                    Nombre Del Proyecto : <%= proyecto.nombre_proyecto %>
+               </h2>
+               <p>Descripción: <%= proyecto.descripcion %>
+               </p>
+          </div>
+
+          <div class="container--proyectos">
+                
+                         <table class="tabla-proyectos">
+                              <thead>
+                                   <tr>
+                                        <th>Fecha de Subida</th>
+                                        <th>Autor</th>
+                                        <th>Proyecto</th>
+                                        <th>Unise</th>
+                                   </tr>
+                              </thead>
+                              <tbody>
+                                        <tr>
+                                             <td text-align: center;">
+                                                   <% const fecha=new Date(proyecto.fecha_inicio); const
+                                                  dia=fecha.getDate().toString().padStart(2, '0' ); const mes=(fecha.getMonth() +
+                                                  1).toString().padStart(2, '0' ); const anio=fecha.getFullYear(); const
+                                                  fechaFormateada=`${dia}/${mes}/${anio}`; %>
+                                                  <%= fechaFormateada %>
+                                             </td>
+                                             <td>
+                                                 <%= proyecto.nombre_usuario %>
+                                             </td>
+                                             <td>
+                                                  <a class="btn" href="<%= proyecto.enlaces %>">Ver Proyecto</a>
+                                             </td>
+                                             <td>
+                                                  <a class="btn" href="/proyectos/categoria/enviar-correo?id=<%= proyecto.id_proyecto %>">Ver Proyecto</a>
+
+                                             </td>
+                                     
+                                        </tr>
+                              </tbody>
+                         </table>
+                              <a href="/proyectos" class="volver-btn">
+                                   <i class="fas fa-arrow-left"></i> Volver
+                              </a>
+          </div>
+     </main>
+  
 
 
-     <a href="/proyectos">Volver</a>
 </body>
 
 </html>

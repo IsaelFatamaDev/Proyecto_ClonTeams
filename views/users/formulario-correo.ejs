@@ -2,100 +2,177 @@
 <html lang="en">
 
 <head>
+
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Enviar Correo</title>
-     <style>
-          body {
-               font-family: Arial, sans-serif;
-               margin: 0;
-               padding: 0;
-               background-color: #f4f4f4;
-          }
-
-          .container {
-               max-width: 600px;
-               margin: 0 auto;
-               padding: 20px;
-               background-color: #fff;
-               border-radius: 5px;
-               box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-          }
-
-          h1 {
-               margin-top: 0;
-               color: #333;
-          }
-
-          label {
-               display: block;
-               margin-bottom: 5px;
-               color: #555;
-          }
-
-          input[type="text"],
-          input[type="email"],
-          input[type="text"],
-          textarea {
-               width: 100%;
-               padding: 10px;
-               margin-bottom: 15px;
-               border: 1px solid #ccc;
-               border-radius: 3px;
-               box-sizing: border-box;
-          }
-
-          textarea {
-               height: 150px;
-          }
-
-          input[type="submit"] {
-               background-color: #4caf50;
-               color: #fff;
-               border: none;
-               padding: 10px 20px;
-               border-radius: 3px;
-               cursor: pointer;
-          }
-
-          input[type="submit"]:hover {
-               background-color: #45a049;
-          }
-     </style>
+     <link rel="stylesheet" href="/css/style.css">
+     <title>
+          Envio de Correo
+     </title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+     <link rel="stylesheet" href="/css/user.css" />
+     <link rel="shortcut icon" href="/img/Icono.png" type="image/x-icon">
+     <!-- Google Fonts Link For Icons -->
+     <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+     <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+     <link rel="stylesheet" href="/css/bot.css">
+     
 </head>
+<style>
+     form {
+          margin-bottom: 20px;
+     }
+
+     .prompt-box {
+          display: flex;
+          align-items: center;
+     }
+
+     label {
+          margin-right: 10px;
+     }
+
+     input[type="text"] {
+          padding: 5px;
+          width: 100%;
+     }
+
+     button {
+          padding: 5px 10px;
+          background-color: #007bff;
+          color: #fff;
+          border: none;
+          cursor: pointer;
+          border-radius: 15px;
+     }
+
+     button:hover {
+          background-color: #0056b3;
+     }
+
+     .output {
+          background-color: #f4f4f4;
+          padding: 20px;
+     }
+
+     code {
+          background-color: #f8f8f8;
+          padding: 5px;
+          display: block;
+          margin-bottom: 10px;
+     }
+
+     pre {
+          white-space: pre-wrap;
+          word-wrap: break-word;
+     }
+     .btn {
+          display: inline-block;
+          padding: 0.9rem 1.9rem;
+          color: #fff !important;
+          background-color: #64bcf4;
+          border-radius: 16px;
+          text-transform: capitalize;
+          transition: 0.3s;
+      }
+
+      label {
+          display: block;
+          margin-bottom: 5px;
+          color: #555;
+     }
+
+
+</style>
 
 <body>
-     <div class="container">
-          <h1>Enviar Correo Electrónico</h1>
-          <form id="emailForm" method="POST">
-               <label for="nombre">Nombre:</label>
-               <input type="text" id="nombre" name="nombre" required><br><br>
-               <label for="email">Email:</label>
-               <input type="email" id="email" name="email" value="<%= emailUsuario %>" readonly required><br><br>
-               <label for="subject">Asunto:</label>
-               <input type="text" id="subject" name="subject" required><br><br>
-               <label for="mensaje">Mensaje:</label><br>
-               <textarea id="mensaje" name="mensaje" rows="4" cols="50" required></textarea><br><br>
-               <input id="enviarCorreo" type="submit" value="Enviar">
-          </form>
-          <a href="/proyectos">Volver</a>
-     </div>
-     <script>
-          const emailForm = document.getElementById('emailForm');
-          const currentUrl = window.location.href;
+  
+     <main class="main--content">
+          <header style="position: sticky;">
+               <div class="container">
+                    <div class="logo">
+                         <img src="/img/Icono.png" alt="Logo" />
+                         <h3>ClonTeams</h3>
+                    </div>
 
-          emailForm.addEventListener('submit', function (e) {
-               e.preventDefault();
-               const email = document.getElementById('email').value;
-               const nombre = document.getElementById('nombre').value;
-               const subject = document.getElementById('subject').value;
-               const mensaje = document.getElementById('mensaje').value;
-               window.location.href = `mailto:${email}?subject=${subject}&body=${mensaje}`;
-               setTimeout(() => {
-                    window.location.href = currentUrl;
-               }, 1000);
-          });
-     </script>
+                    <div class="links">
+                         <ul>
+                              <li><a href="/proyectos">Proyectos</a></li>
+                              <li><a href="/loginUser" class="btn">Usuarios</a></li>
+                              <li><a href="/loginAdmin" class="btn">Administradores</a></li>
+                         </ul>
+                    </div>
+
+                    <div class="overlay"></div>
+
+                    <div class="hamburger-menu">
+                         <div class="bar"></div>
+                    </div>
+               </div>
+          </header>
+          <hr>
+    
+
+          <div style="background: #e7e7e7; width: 50%;  text-align: center;
+          " class="container--proyectos">
+               <div class="categoria--title">
+                    <h2> 
+                         Enviar Correo Electrónico
+                    </h2>
+                 
+               </div>
+                
+                         <table class="tabla-proyectos">
+                              <tbody>
+                                        <tr>
+                                             <td>
+                                                  <label for="nombre">Nombre:</label>
+                                                  <input type="text" id="nombre" name="nombre" required>
+                                             </td>
+                                            
+                                     
+                                        </tr>
+                                        <tr>
+                                             <td>
+                                                  <label for="email">Email:</label>
+                                                  <input type="email" id="email" name="email" value="<%= emailUsuario %>" readonly required>
+                                             </td>
+                                            
+                                     
+                                        </tr>
+                                        <tr>
+                                             <td>
+                                                  <label for="subject">Asunto:</label>
+                                                  <input type="text" id="subject" name="subject" required>
+                                             </td>
+                                            
+                                     
+                                        </tr>
+                                        <tr>
+                                             <td>
+                                                  <label for="mensaje">Mensaje:</label><br>
+                                                  <textarea id="mensaje" name="mensaje" rows="4" cols="50" required></textarea>
+                                             </td>
+                                            
+                                     
+                                        </tr>
+                                        <tr>
+                                             <td>
+                                                  <input class="volver-btn" id="enviarCorreo" type="submit" value="Enviar">
+                                             </td>
+                                            
+                                     
+                                        </tr>
+                              </tbody>
+                         </table>
+                             
+          </div>
+     </main>
+  
+
+
 </body>
 
 </html>
