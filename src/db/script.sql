@@ -179,7 +179,7 @@ SET
     nombre_proyecto = "Creación de un chatBot",
     descripcion = "Voy a crear un ChatBot con ayuda de NodeJs"
 WHERE
-    id_proyecto = 4;
+    id_proyecto = 6;
 
 SELECT
     *
@@ -191,6 +191,51 @@ select
 from
     categorias;
 
-    DELETE FROM PROYECTOS WHERE id_proyecto= 4;
+SELECT
+    *
+FROM
+    usuarios;
 
-    SELECT * FROM PROYECTOS;
+DELETE FROM PROYECTOS
+WHERE
+    id_proyecto = 4;
+
+SELECT
+    *
+FROM
+    PROYECTOS;
+
+SELECT
+    nombre_categoria
+FROM
+    categorias
+WHERE
+    id_categoria = 2
+SELECT
+    *
+FROM
+    USUARIOS;
+
+SELECT
+    proyectos.*,
+    usuarios.nombre AS nombre_usuario,
+    usuarios.email AS email_usuario
+FROM
+    proyectos
+    JOIN usuarios ON proyectos.id_usuario = usuarios.id_usuario
+WHERE
+    proyectos.id_proyecto = 5
+SELECT
+    *
+FROM
+    proyectos;
+
+SELECT
+    *
+FROM
+    categorias;
+
+SELECT
+    *
+FROM
+    usuarios;

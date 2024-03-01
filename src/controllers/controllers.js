@@ -35,15 +35,21 @@ export function obtenerProyectosPorCategoria(categoria) {
 export function obtenerNombreCategoria(idCategoria) {
      return new Promise((resolve, reject) => {
           const query = `SELECT nombre_categoria FROM categorias WHERE id_categoria = ?`;
-          conexion.query(query, [idCategoria], (error, resultado) => {
+          conexion.query(query, [idCategoria], (error, resultados) => {
                if (error) {
                     reject(error);
                } else {
-                    resolve(resultado[0].nombre_categoria);
+                    if (resultados.length > 0) {
+                         resolve(resultados[0].nombre_categoria);
+                    } else {
+                         reject(new Error('No se encontró la categoría con el ID proporcionado'));
+                    }
                }
           });
      });
 }
+
+
 export function obtenerUsuariosConProyectos() {
      return new Promise((resolve, reject) => {
           const query = `
@@ -131,4 +137,21 @@ export function obtenerCategoriasConCantidadProyectos() {
 
      });
 }
+export function obtenerDetallesProyecto(idProyecto) {
+     return new Promise((resolve, reject) => {
+          const query = `
+                SELECT proyectos.*, usuarios.nombre AS nombre_usuario, usuarios.email AS email_usuario
+FROM proyectos
+JOIN usuarios ON proyectos.id_usuario = usuarios.id_usuario
+WHERE proyectos.id_proyecto = ?`;
+          conexion.query(query, [idProyecto], (error, resultado) => {
+               if (error) {
+                    reject(error);
+               } else {
+                    resolve(resultado[0]);
+               }
+          });
+     });
+}
+
 

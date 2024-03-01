@@ -11,102 +11,105 @@
      </title>
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
      <link rel="shortcut icon" href="/img/Icono.png" type="image/x-icon">
-         <!-- Google Fonts Link For Icons -->
-     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+     <!-- Google Fonts Link For Icons -->
+     <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+     <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
      <link rel="stylesheet" href="/css/bot.css">
 </head>
 <style>
-     
      form {
           margin-bottom: 20px;
-        }
-    
-        .prompt-box {
+     }
+
+     .prompt-box {
           display: flex;
           align-items: center;
-        }
-    
-        label {
+     }
+
+     label {
           margin-right: 10px;
-        }
-    
-        input[type="text"] {
+     }
+
+     input[type="text"] {
           padding: 5px;
           width: 100%;
-        }
-    
-        button {
+     }
+
+     button {
           padding: 5px 10px;
           background-color: #007bff;
           color: #fff;
           border: none;
           cursor: pointer;
           border-radius: 15px;
-        }
-    
-        button:hover {
+     }
+
+     button:hover {
           background-color: #0056b3;
-        }
-    
-        .output {
+     }
+
+     .output {
           background-color: #f4f4f4;
           padding: 20px;
-        }
-    
-        code {
+     }
+
+     code {
           background-color: #f8f8f8;
           padding: 5px;
           display: block;
           margin-bottom: 10px;
-        }
-    
-        pre {
+     }
+
+     pre {
           white-space: pre-wrap;
           word-wrap: break-word;
-        }
+     }
 </style>
+
 <body>
      <button class="chatbot-toggler">
           <span class="material-symbols-rounded">mode_comment</span>
           <span class="material-symbols-outlined">close</span>
-        </button>
-        <form id="queryForm">
-            
-        <div class="chatbot">
-          <header>
-            <h2>Chatbot Valle Grande</h2>
-            <span class="close-btn material-symbols-outlined">close</span>
-          </header>
-          <ul class="chatbox">
-            <li class="chat incoming">
-              <span class="material-symbols-outlined">smart_toy</span>
-              <div id="output" class="output"></div>
-       
-    
-            </li>
-          </ul>
-         
-          <div class="chat-input">
-            <div class="prompt-box">
-                <input id="queryInput" name="query" placeholder="Ingresa tu consulta aquí" type="text">
-                <select style="width: 50%;" name="proyectoSeleccionado">
-                    <% proyectos.forEach(function(proyecto) { %>
-                        <option value="<%= proyecto.id_proyecto + ',' + proyecto.nombre_proyecto + ',' + proyecto.descripcion + ',' + proyecto.fecha_inicio + ',' + proyecto.nombre_usuario + ',' + proyecto.enlaces %>">
-                            <%= proyecto.nombre_proyecto %>
-                        </option>
-                    <% }); %>
-                </select>
-                <button type="submit">Consultar</button>
-                
-                
-                <span id="send-btn" class="material-symbols-rounded"></span>
-              </div>
+     </button>
+     <form id="queryForm">
+
+          <div class="chatbot">
+               <header>
+                    <h2>Chatbot Valle Grande</h2>
+                    <span class="close-btn material-symbols-outlined">close</span>
+               </header>
+               <ul class="chatbox">
+                    <li class="chat incoming">
+                         <span class="material-symbols-outlined">smart_toy</span>
+                         <div id="output" class="output"></div>
+
+
+                    </li>
+               </ul>
+
+               <div class="chat-input">
+                    <div class="prompt-box">
+                         <input id="queryInput" name="query" placeholder="Ingresa tu consulta aquí" type="text">
+                         <select style="width: 50%;" name="proyectoSeleccionado">
+                              <% proyectos.forEach(function(proyecto) { %>
+                                   <option
+                                        value="<%= proyecto.id_proyecto + ',' + proyecto.nombre_proyecto + ',' + proyecto.descripcion + ',' + proyecto.fecha_inicio + ',' + proyecto.nombre_usuario + ',' + proyecto.enlaces %>">
+                                        <%= proyecto.nombre_proyecto %>
+                                   </option>
+                                   <% }); %>
+                         </select>
+                         <button type="submit">Consultar</button>
+
+
+                         <span id="send-btn" class="material-symbols-rounded"></span>
+                    </div>
+               </div>
+
           </div>
-          
-        </div>
-    </form>
-    
+     </form>
+
      <div class="sidebar">
           <div class="logo">
                <i class="fa fab fa-accusoft"></i> <span>ClonTeams</span>
@@ -220,48 +223,48 @@
           </div>
      </main>
      <script src="https://unpkg.com/luxon@3.3.0/build/global/luxon.min.js"></script>
-<script>
-    document.getElementById('queryForm').addEventListener('submit', async (event) => {
-        event.preventDefault(); // Evitar que el formulario se envíe de forma predeterminada
+     <script>
+          document.getElementById('queryForm').addEventListener('submit', async (event) => {
+               event.preventDefault(); // Evitar que el formulario se envíe de forma predeterminada
 
-        const query = document.getElementById('queryInput').value; // Obtener la consulta del input
-        const proyectoSeleccionado = document.querySelector('[name="proyectoSeleccionado"]').value; // Obtener el valor seleccionado del menú desplegable
-        
-        // Obtener la hora exacta de Perú
-        const horaPeru = luxon.DateTime.now().setZone('America/Lima').toLocaleString(luxon.DateTime.DATETIME_FULL);
+               const query = document.getElementById('queryInput').value; // Obtener la consulta del input
+               const proyectoSeleccionado = document.querySelector('[name="proyectoSeleccionado"]').value; // Obtener el valor seleccionado del menú desplegable
 
-        try {
-            // Realizar una solicitud POST al servidor Node.js
-            const response = await fetch('/query', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ 
-                    message: query, 
-                    proyectoSeleccionado: proyectoSeleccionado, 
-                    horaPeru: horaPeru, 
-                    categoria: '<%= categoria.nombre_categoria %>' // Agregar el parámetro categoria
-                }) // Enviar la consulta, el proyecto seleccionado, la hora de Perú y la categoría como un objeto JSON
-            });
+               // Obtener la hora exacta de Perú
+               const horaPeru = luxon.DateTime.now().setZone('America/Lima').toLocaleString(luxon.DateTime.DATETIME_FULL);
 
-            const data = await response.json(); // Convertir la respuesta a JSON
+               try {
+                    // Realizar una solicitud POST al servidor Node.js
+                    const response = await fetch('/query', {
+                         method: 'POST',
+                         headers: {
+                              'Content-Type': 'application/json'
+                         },
+                         body: JSON.stringify({
+                              message: query,
+                              proyectoSeleccionado: proyectoSeleccionado,
+                              horaPeru: horaPeru,
+                              categoria: '<%= categoria.nombre_categoria %>' // Agregar el parámetro categoria
+                         }) // Enviar la consulta, el proyecto seleccionado, la hora de Perú y la categoría como un objeto JSON
+                    });
 
-            // Mostrar la respuesta en el elemento de salida
-            const outputElement = document.getElementById('output');
-            outputElement.innerHTML = ''; // Limpiar contenido previo
-            const preElement = document.createElement('pre');
-            const codeElement = document.createElement('code');
-            codeElement.textContent = data.response;
-            preElement.appendChild(codeElement);
-            outputElement.appendChild(preElement);
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    });
-</script>
+                    const data = await response.json(); // Convertir la respuesta a JSON
 
-      
+                    // Mostrar la respuesta en el elemento de salida
+                    const outputElement = document.getElementById('output');
+                    outputElement.innerHTML = ''; // Limpiar contenido previo
+                    const preElement = document.createElement('pre');
+                    const codeElement = document.createElement('code');
+                    codeElement.textContent = data.response;
+                    preElement.appendChild(codeElement);
+                    outputElement.appendChild(preElement);
+               } catch (error) {
+                    console.error('Error:', error);
+               }
+          });
+     </script>
+
+
      <script src="/js/clients.js"></script>
 </body>
 
