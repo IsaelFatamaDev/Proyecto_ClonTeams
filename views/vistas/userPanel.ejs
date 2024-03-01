@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="/css/style.css">
+     <title>
+          Panel Usuario
+     </title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+     <link rel="stylesheet" href="/css/user.css" />
+     <link rel="stylesheet" href="/css/categorias.css" />
+     <link rel="shortcut icon" href="/img/Icono.png" type="image/x-icon">
+     <!-- Google Fonts Link For Icons -->
+     <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+     <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+     <link rel="stylesheet" href="/css/bot.css">
+
+</head>
+<style>
+     form {
+          margin-bottom: 20px;
+     }
+
+     .prompt-box {
+          display: flex;
+          align-items: center;
+     }
+
+     label {
+          margin-right: 10px;
+     }
+
+     input[type="text"] {
+          padding: 5px;
+          width: 100%;
+     }
+
+     button {
+          padding: 5px 10px;
+          background-color: #007bff;
+          color: #fff;
+          border: none;
+          cursor: pointer;
+          border-radius: 15px;
+     }
+
+     button:hover {
+          background-color: #0056b3;
+     }
+
+     .output {
+          background-color: #f4f4f4;
+          padding: 20px;
+     }
+
+     code {
+          background-color: #f8f8f8;
+          padding: 5px;
+          display: block;
+          margin-bottom: 10px;
+     }
+
+     pre {
+          white-space: pre-wrap;
+          word-wrap: break-word;
+     }
+
+     .btn {
+          display: inline-block;
+          padding: 0.9rem 1.9rem;
+          color: #fff !important;
+          background-color: #64bcf4;
+          border-radius: 16px;
+          text-transform: capitalize;
+          transition: 0.3s;
+     }
+</style>
+
+<body>
+
+     <main class="main--content">
+
+
+          <hr>
+          <div class="categoria--title">
+               <h2>
+                Bienvenido:   <%= userdata.nombre %>
+               </h2>
+          </div>
+
+          <div class="container--proyectos">
+               <% if (userdata.length===0) { %>
+                    <div class="datos">
+                         <i class="fa-regular fa-face-frown carita"></i>
+                         <p>Sin datos disponibles para la tabla.</p>
+                    </div>
+                    <% } else { %>
+                         <table class="tabla-proyectos">
+                              <thead>
+                                   <tr>
+                                        <th style="color: white;">.</th>
+                                        <th>Nombre del Proyecto</th>
+                                        <th>Descripción</th>
+                                        <th>Fecha de Subida</th>
+                                        <th>Autor</th>
+                                        <th>Enlace</th>
+                                        <th>Unirse</th>
+                                   </tr>
+                              </thead>
+                              <tbody>
+                                   <% userdata.forEach(function(proyecto, index) { %>
+                                        <tr>
+                                             <td style="color: white; text-align: center;">
+                                                  <%= userdata.id_proyecto %>
+                                             </td>
+                                             <td>
+                                                  <%= userdata.nombre_proyecto %>
+                                             </td>
+                                             <td>
+                                                  <%= userdata.descripcion %>
+                                             </td>
+                                             <td>
+                                                  <% const fecha=new Date(userdata.fecha_inicio); const
+                                                       dia=fecha.getDate().toString().padStart(2, '0' ); const
+                                                       mes=(fecha.getMonth() + 1).toString().padStart(2, '0' ); const
+                                                       anio=fecha.getFullYear(); const
+                                                       fechaFormateada=`${dia}/${mes}/${anio}`; %>
+                                                       <%= fechaFormateada %>
+                                             </td>
+                                             <td>
+                                                  <%= userdata.nombre_usuario %>
+                                             </td>
+                                             <td>
+                                                  <a href="<%= userdata.enlaces %>" class="btn" target="_blank">Link</a>
+                                             </td>
+                                             <td>
+                                                  <a href="/proyectos/categoria/unirse?id=<%= userdata.id_proyecto %>"
+                                                       class="btn">Unirse</a>
+                                             </td>
+                                        </tr>
+                                        <% }); %>
+                              </tbody>
+                         </table>
+                         <% } %>
+                              <a href="/logout" class="volver-btn">
+                                   <i class="fas fa-arrow-left"></i> Cerrar Sesión
+                              </a>
+          </div>
+     </main>
+   
+
+     <script src="/js/clients.js"></script>
+</body>
+
+</html>

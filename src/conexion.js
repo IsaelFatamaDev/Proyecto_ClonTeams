@@ -3,7 +3,7 @@ import mysql from 'mysql';
 const conexion = mysql.createConnection({
      host: 'localhost',
      user: 'root',
-     password: 'admin',
+     password: '',
      database: 'clonteams'
 });
 
